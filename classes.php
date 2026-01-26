@@ -1,15 +1,20 @@
 <?php
 trait database {
-	private string $servername = "localhost";
-	private string $username = "root";
-	private string $password = ""; 
+	//private string $servername = "localhost";
+	//private string $username = "root";
+	//private string $password = ""; 
 	private $connect = null;
 	
 	//Open MYSQL connection
 	public function connection() {
 		if($this->connect == null) {
 			try {
-				$this->connect = new mysqli($this->servername, $this->username, $this->password);
+				mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
+				$host = getenv('DB_HOST') ?: $this->servername;
+				$user = getenv('DB_USER') ?: $this->username;
+				$pass = getenv('DB_PASS') ?: $this->password;
+				$this->connect = new mysqli($host, $user, $pass);
+				//$this->connect = new mysqli($this->servername, $this->username, $this->password);
 				//echo "<p>Connection succeeds!</p>";
 			} catch(mysqli_sql_exception $e) {
 				die ($e->getCode(). ":" .$e->getMessage());
@@ -21,18 +26,13 @@ trait database {
 	//Create database
 	public function dbCreation() {
 		$db = $this->connection();
+		$dbName = getenv('DB_NAME') ?: 'EasyEV_Charging';
 		try {
-			$sql = "CREATE DATABASE IF NOT EXISTS EasyEV_Charging
-			CHARACTER SET utf8mb4
-			COLLATE utf8mb4_unicode_ci
-			";
+			$sql = "CREATE DATABASE IF NOT EXISTS `$dbName`
+	        CHARACTER SET utf8mb4
+	        COLLATE utf8mb4_unicode_ci";
 			$db->query($sql);
-			if ($db->query($sql) === true) {
-				//echo "Database EasyEV_Charging created or already exists.\n";
-			} else {
-				//echo "Error creating database: (" . $mysqli->errno . ") " . $mysqli->error;
-			}
-			$db->select_db("EasyEV_Charging");			
+			$db->select_db($dbName);		
 			return $db;
 		} catch (mysqli_sql_exception $e) {
 			die("Error creating database: " . $e->getCode(). ": " . $e->getMessage()); 
@@ -911,6 +911,7 @@ class Admin extends User implements searchLocations {
 		
 	}
 }
+
 
 
 
