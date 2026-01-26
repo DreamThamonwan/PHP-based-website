@@ -1,0 +1,178 @@
+body {
+	font-family: system-ui;
+	width: 100%;
+	height: 100%;
+	transition: all ease-in 0.75s;
+}
+
+#Nav {
+	position: fixed; 
+	display: flex; 
+	flex-direction: column; 
+	justify-content: space-between;
+}
+
+@media (min-width: 992px) {
+	#admin-main {
+		padding-left: 240px !important;
+		padding-top: 58px !important;
+	}
+	.should-hide {
+		display: none;
+	}
+	.hero-section {
+		flex-direction: row !important;
+	}
+	.hero-content {
+		flex-direction: row !important;
+	}
+	#availableStations {
+		flex-direction: row !important;
+	}
+}
+
+@media (max-width: 991.99px) {
+	#sidebarMenu {
+		display: none !important;
+	}
+}
+
+#sidebarMenu {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  padding: 58px 0 0; /* Height of main navbar */
+  box-shadow: 0 2px 5px 0 rgb(0 0 0 / 5%), 0 2px 10px 0 rgb(0 0 0 / 5%);
+  width: 240px;
+  z-index: 600;
+}
+
+.sidebar .active {
+  border-radius: 5px;
+  box-shadow: 0 2px 5px 0 rgb(0 0 0 / 16%), 0 2px 10px 0 rgb(0 0 0 / 12%);
+}
+
+.sidebar-sticky {
+  position: relative;
+  top: 0;
+  height: calc(100vh - 48px);
+  padding-top: 0.5rem;
+  overflow-x: hidden;
+  overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+}
+
+#admin-main {
+	width: 100vw;
+    height: 100%;
+}
+
+#customer-main {
+	width: 100vw;
+    height: 100%;
+}
+
+.container-content {
+	width: 100vw !important;
+	height: 100vh !important;
+}
+
+.hero-section {
+	display: flex;
+	background-image: linear-gradient(to bottom, rgb(0 4 18 / 98%), rgba(6, 18, 51, 0.384)), url(./images/ev.jpg);
+	background-size: cover;
+	flex-direction: column;
+	background-position: center;
+	min-height: 30vmax;
+}
+
+.hero-content {
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	justify-content: space-between;
+	gap: 6vw;
+    padding: 10vh 3vw;
+	color: 	RGB(230, 81, 0);
+	width: 100%;
+}
+
+.hero-text {
+	display: flex;
+	flex-direction: column;
+	font-weight: 600;
+	font-size: 1.5rem;
+	gap: 2rem;
+	flex-grow: 1;
+	flex-shrink: 1;
+}
+
+#registration {
+	display: flex;
+	flex-direction: column;
+	background-color: rgba(255, 255, 255, 0.445);
+	backdrop-filter: blur(8px);
+    border-radius: 2rem;
+    padding: 1vh 1vw;
+	color: 	wheat;
+    justify-content: center;
+    align-items: center;
+	transition: all ease-out 0.25s;
+}
+
+.nav-link {
+	color: rgb(255, 255, 255) !important;
+}
+.nav-link:active, .nav-link:focus {
+	color: rgb(255, 255, 255) !important;
+}
+
+.hidden {
+	display: none !important;
+}
+
+.void {
+	display: flex;
+	width: 100%;
+	flex-direction: column;
+    justify-content: center;
+	gap: 2vh;
+}
+
+.info {
+	display: flex;
+    width: 100%;
+    padding: 5rem 0;
+    justify-content: space-evenly;
+	align-items: center;
+    background-image:url(./images/info-section.jpg);
+    background-size: cover;
+    background-position: center;
+}
+
+.value {
+	display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+	/* Add the blur effect */
+	-webkit-backdrop-filter: blur(5px);
+	backdrop-filter: blur(5px);
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+img {
+	width: 30%;
+    height: auto;
+}
+
+.add-section {
+	display: flex;
+	flex-direction: column;
+	background-color: rgb(255, 255, 255, 0.2);
+	backdrop-filter: blur(8px);
+    border-radius: 10px;
+    justify-content: center;
+    align-items: center;
+}
