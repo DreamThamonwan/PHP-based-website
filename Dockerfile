@@ -1,10 +1,14 @@
+FROM php:8.2-apache
 
-# Install mysqli + common utilities
+# PHP extensions 
 RUN docker-php-ext-install mysqli
 
-# Enable Apache rewrite (optional, safe)
+# useful for clean URLs if add rewrite rules
 RUN a2enmod rewrite
 
-# Optional: set a sensible Apache docroot config
-# (If your entry point is index.php in repo root, this is fine as-is.)
+# Copy app into the container for cloud deployments
 WORKDIR /var/www/html
+COPY . /var/www/html
+
+# file permissions
+RUN chown -R www-data:www-data /var/www/html
