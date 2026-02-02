@@ -1,8 +1,9 @@
 <?php
 trait database {
-	//private string $servername = "localhost";
-	//private string $username = "root";
-	//private string $password = ""; 
+	private string $servername = "localhost";
+	private string $username = "root";
+	private string $password = ""; 
+	private string $database   = "EasyEV_Charging";
 	private $connect = null;
 	
 	//Open MYSQL connection
@@ -918,3 +919,4 @@ class Admin extends User implements searchLocations {
 
 
 ?>
+
