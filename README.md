@@ -1,145 +1,159 @@
-# EasyEV-Charging (PHP + MySQL) — EV Charging Station Management
+# EasyEV Charging
 
-EasyEV-Charging is a dynamic web application built with **object-oriented PHP** and **MySQL** to manage EV charging locations and charging sessions. It supports two roles—**Customer** and **Administrator**—and models real operational workflows such as station availability, check-in/check-out, and session cost calculation.
+**A PHP and MySQL application for managing EV charging locations, customer sessions, availability, and charging costs.**
+
+EasyEV models a real operational workflow with two roles: **Customer** and **Administrator**. Customers can find available charging locations, check in, check out, and review their charging history. Administrators can manage charging locations and monitor users and active sessions.
 
 This project was completed as a major assignment for **MTS9307 Web Server Programming**.
 
----
+## Project at a glance
 
-## Why this project matters (real-world workflow)
-Many businesses still rely on manual, paper-based or spreadsheet-heavy tracking for operational processes. This app demonstrates how to:
-- centralise operational data (locations, capacity, users, sessions),
-- enforce rules (availability, one active session, etc.),
-- and provide role-based views that reduce confusion and errors.
+| Area | Implementation |
+|---|---|
+| Backend | Object-oriented PHP |
+| Database | MySQL with MySQLi |
+| Front end | HTML, CSS, Bootstrap 5 |
+| Roles | Customer and Administrator |
+| Core workflows | Authentication, station CRUD, search, check-in, check-out, availability, cost calculation |
+| Local environment | XAMPP/WAMP/MAMP or Docker |
 
----
+## My contribution
 
-## Key Features
-
-### Customer features
-- View all charging locations and availability
-- Search charging locations
-- **Check-in** to start charging (only if a spot is available)
-- **Check-out** to end charging and see total cost
-- View **active sessions** (current check-ins)
-- View **charging history** (past sessions)
-
-### Administrator features
-- Add and modify charging locations
-- List stations (all / available-only / full-only)
-- Search charging locations
-- List all registered users
-- List users currently checked in (active sessions)
-
----
-
-## Tech Stack
-- **Backend:** Object-Oriented PHP
-- **Database:** MySQL (MySQLi)
-- **Frontend:** HTML, CSS, Bootstrap 5
-
----
-
-## High-Level Architecture
-
-**Presentation layer**
-- PHP templates render Bootstrap 5 UI
-- Helper modules generate tables/cards for consistent presentation (e.g., `EVTable()`)
-
-**Domain layer (OOP)**
-- Traits encapsulate DB and business logic:
-  - `database` trait: connection + DB bootstrap
-  - `EV` trait: station CRUD & validation
-  - `Session` trait: check-in/check-out workflow + cost calculation
-- Concrete classes:
-  - `User`: registration/login + customer actions
-  - `Admin`: extends `User` and adds admin reporting/actions
-
-**Data layer**
-Self-initialising schema created on first run:
-- `users` — registered accounts and roles
-- `charging_stations` — station capacity and live availability
-- `sessions` — one row per charging session (start/end time, cost)
-
----
-
-## Setup (Local Run)
-
-### Prerequisites
-- PHP + MySQL local server (e.g., **XAMPP**, WAMP, MAMP)
-- Web browser
-
-### Steps
-1. Place project files into your web server root (e.g., `htdocs/` in XAMPP) or a sub-folder.
-2. Start **Apache** and **MySQL** in your local server environment.
-3. Open the project entry point:
-   - `http://localhost/<your-folder>/index.php`
-
-### Database notes
-- The application attempts to create the database **`EasyEV_Charging`** if it does not exist.
-- Default DB config (from the report) is in `classes.php` under the `database` trait:
-  - host: `localhost`
-  - username: `root`
-  - password: `""` (empty)
-- If your environment differs, update the connection details in `classes.php`.
-- Required tables (`users`, `charging_stations`, `sessions`) are created automatically if missing.
-- An SQL file may also be included (e.g., `easyev_charging.sql`) as a bootstrap/reference.
-
----
-
-## Project Structure (as per implementation)
-- `index.php` — entry point: login, registration, logout, public search, list available stations
-- `signInForm.php`, `signUpForm.php` — auth UI
-- `classes.php` — core OOP logic (traits + classes)
-- `adminPanel.php` — admin dashboard
-- `addEV.php` — add station form (admin)
-- `editEV.php` — edit stations (admin)
-- `customerPanel.php` — customer dashboard
-- `customerCheckIn.php` / `customerCheckOut.php` — session start/end
-- `admin-functions.php` / `customer-functions.php` — UI helper functions
-- `style_sheet.css` — site styling
-- `Image/` — images for UI sections
-
----
-
-## Validation & Error Handling
-- **Client-side:** Bootstrap validation states toggled based on PHP validation flags.
-- **Server-side:** Inputs are validated using regex checks before database operations.
-- Database actions are wrapped with exception handling (`mysqli_sql_exception`) and error messages are returned to the UI.
-
----
-
-## UI/UX Notes
-- Bootstrap-based responsive layout with a desktop breakpoint at ~992px
-- Cards and tables used for consistent scanning of stations/sessions
-- Availability status uses clear colour indicators (e.g., available vs full)
-
----
-
-## Security / Implementation Notes (Honest)
-- Password hashing in this assignment uses **MD5** (as per report).  
-  For production systems, I would replace this with `password_hash()` / `password_verify()` and add stronger security controls.
-- Payment processing is **not implemented** (only cost calculation & display).
-
----
-
-## What I learned
-- Designing an end-to-end CRUD application with role-based functionality
-- Translating a workflow into data models (stations, sessions, capacity, availability)
-- Applying input validation and predictable error handling
-- Keeping logic reusable by separating domain logic (traits/classes) from presentation helpers
-
----
+- Translated operational requirements into customer and administrator workflows
+- Designed relational data structures for users, charging stations, and sessions
+- Implemented reusable object-oriented PHP domain and database logic
+- Built CRUD operations, authentication, validation, availability rules, and cost calculation
+- Developed responsive role-specific interfaces with Bootstrap
+- Tested input handling, database behaviour, normal workflows, and error conditions
+- Documented the architecture, setup process, limitations, and potential improvements
 
 ## Screenshots
-If you are reviewing this project, see the `/Image` folder and UI panels:
-- Home + authentication
-- Admin panel (add/edit/list/search)
-- Customer panel (available stations / active sessions / history)
-- Check-in/out flow and cost display
 
----
+### Home and authentication
+
+![EasyEV home page](docs/screenshots/01_home-hero.jpg)
+
+### Customer dashboard
+
+![EasyEV customer dashboard](docs/screenshots/03_customer-dashboard.jpg)
+
+### Customer check-in workflow
+
+![EasyEV customer check-in form](docs/screenshots/05_customer-check-in-form.jpg)
+
+### Administrator dashboard
+
+![EasyEV administrator dashboard](docs/screenshots/08_admin-dashboard.jpg)
+
+Additional screenshots are available in [docs/screenshots](docs/screenshots).
+
+## Why this project matters
+
+Many operational processes still depend on manual records or disconnected spreadsheets. EasyEV demonstrates how a database-driven application can:
+
+- centralise locations, capacity, users, and charging sessions,
+- enforce availability and active-session rules,
+- provide separate interfaces for different user roles, and
+- make current and historical information easier to understand.
+
+## Key features
+
+### Customer features
+
+- Register, sign in, and sign out
+- View and search charging locations
+- See current availability
+- Check in to start a charging session
+- Check out and view the calculated cost
+- Review active sessions and charging history
+
+### Administrator features
+
+- Add and modify charging locations
+- View all, available-only, or full stations
+- Search charging locations
+- View registered users
+- View users with active charging sessions
+
+## High-level architecture
+
+### Presentation layer
+
+- PHP templates render the Bootstrap 5 interface
+- Helper functions generate reusable tables and cards
+- Responsive layouts support desktop and mobile viewing
+
+### Domain layer
+
+Reusable PHP traits and classes separate the main business logic:
+
+- `database` trait: connection and database initialisation
+- `EV` trait: charging-station CRUD and validation
+- `Session` trait: check-in, check-out, and cost calculation
+- `User` class: registration, login, and customer actions
+- `Admin` class: administrator reporting and management actions
+
+### Data layer
+
+The application initialises three main tables:
+
+- `users`: registered accounts and roles
+- `charging_stations`: station capacity and live availability
+- `sessions`: session start, end, and calculated cost
+
+## Validation and error handling
+
+- Client-side Bootstrap validation communicates input state
+- Server-side regular-expression checks validate inputs before database operations
+- Database operations use `mysqli_sql_exception` handling
+- Error messages are returned to the interface for user feedback
+
+## Local setup
+
+### Option 1: XAMPP, WAMP, or MAMP
+
+1. Place the project in the local web-server root, such as `htdocs`.
+2. Start Apache and MySQL.
+3. Open `http://localhost/<project-folder>/index.php`.
+4. If necessary, update the database connection in `classes.php`.
+
+The application attempts to create the `EasyEV_Charging` database and required tables when they do not exist.
+
+### Option 2: Docker
+
+The repository includes a `Dockerfile` and `docker-compose.yml` for a container-based local environment.
+
+## Project structure
+
+- `index.php`: authentication, public search, and available stations
+- `signInForm.php`, `signUpForm.php`: authentication forms
+- `classes.php`: domain and database logic
+- `adminPanel.php`: administrator dashboard
+- `addEV.php`, `editEV.php`: station management
+- `customerPanel.php`: customer dashboard
+- `customerCheckIn.php`, `customerCheckOut.php`: charging-session workflow
+- `admin-functions.php`, `customer-functions.php`: presentation helpers
+- `style_sheet.css`: interface styling
+- `docs/screenshots`: portfolio screenshots
+
+## Security and scope
+
+This is an academic demonstration rather than a production service.
+
+- The assignment implementation uses MD5 password hashing. A production version should use `password_hash()` and `password_verify()`.
+- Payment processing is outside the project scope; the application calculates and displays session cost only.
+- A production deployment would also require CSRF protection, stricter authorization checks, environment-based secrets, and further security testing.
+
+## What I learned
+
+- Translating a business workflow into database entities and application rules
+- Building an end-to-end role-based CRUD application
+- Separating reusable domain logic from presentation helpers
+- Designing predictable validation and error-handling behaviour
+- Documenting both implementation strengths and technical limitations honestly
 
 ## Author
-Thamonwan (Dream) Nitatwichit  
-GitHub: https://github.com/DreamThamonwan
+
+**Thamonwan (Dream) Nitatwichit**
+
+[GitHub profile](https://github.com/DreamThamonwan) | [LinkedIn](https://www.linkedin.com/in/thamonwan-nitatwichit-982566255/)
